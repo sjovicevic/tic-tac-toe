@@ -18,20 +18,21 @@
 
 import boards
 import winner
+import os
 
 
 def initialization(player_num):
     if player_num == 'X':
-        return list(map(int, (input('Player 1 (X) - enter you move in {x,y} format! >>> ')).split(',')))
+        return list(map(int, (input('Player 1 (X) >>> ')).split(',')))
     else:
-        return list(map(int, (input('Player 2 (O) - enter you move in {x,y} format! >>> ')).split(',')))
+        return list(map(int, (input('Player 2 (O) >>> ')).split(',')))
 
 def validation(element):
     if element[0] in range(1,4) and element[1] in range(1,4):
         return True
 
 # main part of the program
-def machinery(value, moves, win):
+def machinery(board, value, moves, win):
      # player
         # initializing player's desired move
         move = initialization(value)
@@ -56,12 +57,7 @@ def machinery(value, moves, win):
             win = True
         return win, moves
 
-
-
-# making sure if someone sometimes use this as a independent module
-
-if __name__ == '__main__':
-    # board initialization and creation of base board
+def play():
     board = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
     boards.build(board)
     moves = 0
@@ -71,12 +67,44 @@ if __name__ == '__main__':
     while moves < 9:
         # checking who is on move
         if moves % 2 == 0:
-            win, moves = machinery('X', moves, win)
+            win, moves = machinery(board, 'X', moves, win)
+            if win:
+                break
         else:
-            win, moves = machinery('O', moves, win)
+            win, moves = machinery(board, 'O', moves, win)
+            if win:
+                break
+
 
     if not win:
         print("It's a tie!")
+    
+
+
+
+
+# making sure if someone sometimes use this as a independent module
+
+if __name__ == '__main__':
+    # board initialization and creation of base board
+    if (input('Do you need tutorial? y/n >>> ')).lower() == 'y':
+        print("""
+            Tic-tac-toe or Xs and Os is a game for two players, X and O, 
+            who take turns marking the spaces in a 3×3 grid. 
+            The player who succeeds in placing three of their marks
+            in a horizontal, vertical, or diagonal row is the winner.
+            Marking is done with x,y format where x is row number, y is column number.
+
+            e.g. 
+            
+            Player 1 (X) >>> 2,3
+        
+        """)
+    while (input('Play? y/n >>> ')).lower() == 'y':
+        os.system('clear')
+        print('______________________________________________________________________________')
+        play()
+
 
 
 # testing finished, hopefully everything works!
