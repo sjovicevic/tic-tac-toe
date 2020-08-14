@@ -4,9 +4,18 @@
 # testing this module I came to conclusion that every board greater than 11x11 does not work very well
 # package tested on Python 3.8.2
 
+# building an actual board that is usable
+def build(board):
+    print(f'''  
+               | {board[0][0]} | {board[0][1]} | {board[0][2]} |
+               | {board[1][0]} | {board[1][1]} | {board[1][2]} |
+               | {board[2][0]} | {board[2][1]} | {board[2][2]} |
+      ''')
 
 
-def build(board_size):
+
+# great just for printing base
+def build_base(board_size):
     for i in range(board_size):
         dash(board_size)
         straight(board_size)
@@ -22,6 +31,13 @@ def straight(size):
 
 def dash(size):
     print(size * f" {size*'-'}")
+
+
+# testing
+
+if __name__ == '__main__':
+    board = [[1, 2, 0], [0, 2, 0], [1, 0, 0]]
+    build(board)
 
 
 
