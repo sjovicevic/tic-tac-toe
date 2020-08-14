@@ -17,15 +17,4 @@
 
 # testing
 
-moves = 0
-move = 0
-while moves <= 4:
-    if moves % 2 == 0:
-        move = (input("Player 1 - Enter your position in {x,y} format >>> ")).split(',')
-        print(move)
-    else:
-        move = (input("Player 2 - Enter your position in {x,y} format >>> ")).split(',')
-        print(move)
-    moves+=1
-
-
+print('Hey')
