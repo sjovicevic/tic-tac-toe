@@ -19,7 +19,7 @@ import boards
 import winner
 
 
-# testing
+# testing in progress
 
 # board initialization and creation of base board
 board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
