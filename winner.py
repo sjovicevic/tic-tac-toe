@@ -1,20 +1,15 @@
 
 # main function 
-def board_winner(ls):
-    winner = 0
+def board_winner(ls, value):
+    winner = '.'
     for i in range(len(ls)):
         # check if player 1 is the winner
-        if row(ls, i, 1) or column(ls, i, 1) or diagonals(ls, 1):
-            winner = 1
-            return winner
-            break
-        # check if player 2  is the winner
-        elif row(ls, i, 2) or column(ls, i, 2) or diagonals(ls, 1):
-            winner = 2
+        if row(ls, i, value) or column(ls, i, value) or diagonals(ls, value):
+            winner = value
             return winner
             break
     # check if it's a tie
-    if winner == 0:
+    if winner == '.':
         return winner
 
             

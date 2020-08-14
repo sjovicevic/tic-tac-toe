@@ -14,60 +14,69 @@
 # august 2020
 # serbia
 
+# NOTICE: main.py cannot work without boards.py & winner.py modules
 
 import boards
 import winner
 
 
-# testing in progress
+def initialization(player_num):
+    if player_num == 'X':
+        return list(map(int, (input('Player 1 (X) - enter you move in {x,y} format! >>> ')).split(',')))
+    else:
+        return list(map(int, (input('Player 2 (O) - enter you move in {x,y} format! >>> ')).split(',')))
 
-# board initialization and creation of base board
-board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-boards.build(board)
-moves = 0
+def validation(element):
+    if element[0] in range(1,4) and element[1] in range(1,4):
+        return True
 
 # main part of the program
-while moves < 9:
-    # checking who is on move
-    if moves % 2 == 0:
-        # Player 1
+def machinery(value, moves, win):
+     # player
         # initializing player's desired move
-        move = list(map(int, (input('Player 1 - enter you move in {x,y} format! >>> ')).split(',')))
+        move = initialization(value)
         # checking if the input is valid
-        if not (move[0] in range(1,4) and move[1] in range(1,4)):
+        if not validation(move):
             print("Invalid input, try again")
         else:
             # checking if field is occupied
-            if board[move[0]-1][move[1]-1] == 0:
-                board[move[0]-1][move[1]-1] = 1
+            if board[move[0]-1][move[1]-1] == '.':
+                board[move[0]-1][move[1]-1] = value
                 # building newly formed board after each move
                 boards.build(board)
-                moves+=1
-            else:
-                # warning message that field is occupied
-                print("Field is filled, try again!")
-    if winner.board_winner(board) == 1:
-        print("Winner is Player 1!\n")
-        break
-    else:
-        # Player 2
-        # exact same thing as player 1 part of the code
-        move = list(map(int, (input('Player 2 - enter you move in {x,y} format! >>> ')).split(',')))
-        if move[0] >= 4 or move[1] >= 4 or move[0] <= 0 or move[1] <= 0:
-            print("Invalid input, try again")
-        else:
-            if board[move[0]-1][move[1]-1] == 0:
-                board[move[0]-1][move[1]-1] = 2
-                boards.build(board)
+                # making sure player played his move
                 moves+=1
             else:
                 print("Field is filled, try again!")
-    
-    if winner.board_winner(board) == 2:
-        print("Winner is Player 2!\n")
-        break
+        
+        # if player is winner 
+        if winner.board_winner(board, value) == value:
+            print(f"Winner is Player {value}!\n")
+            # win is useful because last if, out of while loop check if there is a winner
+            win = True
+        return win, moves
 
-if winner.board_winner(board) == 0:
-        print("It's a tie!\n")
-print(board)
-    
+
+
+# making sure if someone sometimes use this as a independent module
+
+if __name__ == '__main__':
+    # board initialization and creation of base board
+    board = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
+    boards.build(board)
+    moves = 0
+    win = False
+
+    # main part of the program
+    while moves < 9:
+        # checking who is on move
+        if moves % 2 == 0:
+            win, moves = machinery('X', moves, win)
+        else:
+            win, moves = machinery('O', moves, win)
+
+    if not win:
+        print("It's a tie!")
+
+
+# testing finished, hopefully everything works!
