@@ -23,6 +23,5 @@ def straight(size):
 def dash(size):
     print(size * f" {size*'-'}")
 
-build("stefan")
 
 

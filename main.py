@@ -14,3 +14,6 @@
 # august 2020
 # serbia
 
+import boards
+
+boards.build(3)
