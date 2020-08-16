@@ -58,7 +58,7 @@ def machinery(board, value, moves, win):
         return win, moves
 
 def play():
-    board = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
+    board = [['.','.','.'], ['.','.','.'], ['.','.','.']]
     boards.build(board)
     moves = 0
     win = False
